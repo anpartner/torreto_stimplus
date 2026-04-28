@@ -1,0 +1,129 @@
+[
+  {
+    "identifier": "LAP-NOVA-20",
+    "categories": ["informatique", "ordinateurs_portables"],
+    "values": {
+      "name": [{"data": "PC Portable Atlas 20"}],
+      "description": [{"data": "Ordinateur portable 20 pouces optimise pour la recherche produit et le multitache."}],
+      "brand": [{"data": "NovaTech"}],
+      "screen_size": [{"data": "20 pouces"}],
+      "color": [{"data": "gris sidereal"}],
+      "storage": [{"data": "1 To SSD"}],
+      "price": [{"data": {"amount": "1499", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 94}]
+    }
+  },
+  {
+    "identifier": "LAP-NOVA-15",
+    "categories": ["informatique", "ordinateurs_portables"],
+    "values": {
+      "name": [{"data": "PC Portable Atlas 15"}],
+      "description": [{"data": "Version compacte 15 pouces pour les equipes commerciales."}],
+      "brand": [{"data": "NovaTech"}],
+      "screen_size": [{"data": "15 pouces"}],
+      "color": [{"data": "argent"}],
+      "storage": [{"data": "512 Go SSD"}],
+      "price": [{"data": {"amount": "1199", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 88}]
+    }
+  },
+  {
+    "identifier": "AIO-ORION-20",
+    "categories": ["informatique", "ordinateurs_bureau"],
+    "values": {
+      "name": [{"data": "PC Tout-en-un Orion 20"}],
+      "description": [{"data": "Poste de travail avec ecran 20 pouces integre et format tout-en-un."}],
+      "brand": [{"data": "Orion"}],
+      "screen_size": [{"data": "20 pouces"}],
+      "color": [{"data": "noir mat"}],
+      "storage": [{"data": "1 To SSD"}],
+      "price": [{"data": {"amount": "1299", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 82}]
+    }
+  },
+  {
+    "identifier": "MON-VISION-20",
+    "categories": ["informatique", "moniteurs"],
+    "values": {
+      "name": [{"data": "Ecran Vision 20"}],
+      "description": [{"data": "Moniteur 20 pouces IPS pour les postes e-commerce."}],
+      "brand": [{"data": "Visionix"}],
+      "screen_size": [{"data": "20 pouces"}],
+      "color": [{"data": "noir"}],
+      "price": [{"data": {"amount": "189", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 61}]
+    }
+  },
+  {
+    "identifier": "PHO-PULSE-128",
+    "categories": ["telephonie", "smartphones"],
+    "values": {
+      "name": [{"data": "Smartphone Pulse X Bleu"}],
+      "description": [{"data": "Telephone 128 Go avec appareil photo 50 MP et batterie longue duree."}],
+      "brand": [{"data": "Pulse"}],
+      "screen_size": [{"data": "6.1 pouces"}],
+      "color": [{"data": "bleu"}],
+      "storage": [{"data": "128 Go"}],
+      "price": [{"data": {"amount": "699", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 91}]
+    }
+  },
+  {
+    "identifier": "EAR-ECHO-BUDS",
+    "categories": ["audio", "ecouteurs"],
+    "values": {
+      "name": [{"data": "Ecouteurs Echo Buds"}],
+      "description": [{"data": "Ecouteurs bluetooth avec reduction de bruit active."}],
+      "brand": [{"data": "Echo"}],
+      "color": [{"data": "blanc"}],
+      "price": [{"data": {"amount": "149", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 75}]
+    }
+  },
+  {
+    "identifier": "TV-HORIZON-55",
+    "categories": ["tv", "salon"],
+    "values": {
+      "name": [{"data": "TV Horizon 55 Smart"}],
+      "description": [{"data": "Televiseur 55 pouces 4K compatible streaming."}],
+      "brand": [{"data": "Horizon"}],
+      "screen_size": [{"data": "55 pouces"}],
+      "color": [{"data": "anthracite"}],
+      "price": [{"data": {"amount": "899", "currency": "EUR"}}],
+      "in_stock": [{"data": false}],
+      "popularity": [{"data": 66}]
+    }
+  },
+  {
+    "identifier": "OFF-FLOW-CHAIR",
+    "categories": ["bureau", "mobilier"],
+    "values": {
+      "name": [{"data": "Chaise de bureau Flow"}],
+      "description": [{"data": "Siege ergonomique pour longues sessions de travail."}],
+      "brand": [{"data": "Flow"}],
+      "color": [{"data": "gris"}],
+      "price": [{"data": {"amount": "249", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 58}]
+    }
+  },
+  {
+    "identifier": "KEY-JET-MECH",
+    "categories": ["informatique", "claviers"],
+    "values": {
+      "name": [{"data": "Clavier mecanique Jet"}],
+      "description": [{"data": "Clavier compact pour equipes support et ops."}],
+      "brand": [{"data": "Jet"}],
+      "color": [{"data": "noir"}],
+      "price": [{"data": {"amount": "99", "currency": "EUR"}}],
+      "in_stock": [{"data": true}],
+      "popularity": [{"data": 71}]
+    }
+  }
+]

@@ -1,0 +1,90 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: ai-search-backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:3000}
+      CATALOG_MODE: ${CATALOG_MODE:-sample}
+      CATALOG_SOURCE_PATH: /app/data/sample_catalog.json
+      CATALOG_SNAPSHOT_PATH: ${CATALOG_SNAPSHOT_PATH:-/app/data/runtime/catalog_snapshot.json}
+      SYNC_STATE_PATH: ${SYNC_STATE_PATH:-/app/data/runtime/sync_state.json}
+      AKENEO_BASE_URL: ${AKENEO_BASE_URL:-}
+      AKENEO_USERNAME: ${AKENEO_USERNAME:-}
+      AKENEO_PASSWORD: ${AKENEO_PASSWORD:-}
+      AKENEO_CLIENT_ID: ${AKENEO_CLIENT_ID:-}
+      AKENEO_CLIENT_SECRET: ${AKENEO_CLIENT_SECRET:-}
+      AKENEO_PREFERRED_LOCALE: ${AKENEO_PREFERRED_LOCALE:-fr_FR}
+      AKENEO_FALLBACK_LOCALE: ${AKENEO_FALLBACK_LOCALE:-en_US}
+      AKENEO_PAGE_LIMIT: ${AKENEO_PAGE_LIMIT:-100}
+      AKENEO_MAX_PRODUCTS: ${AKENEO_MAX_PRODUCTS:-0}
+      TYPESENSE_URL: ${TYPESENSE_URL:-http://typesense:8108}
+      TYPESENSE_API_KEY: ${TYPESENSE_API_KEY:-xyz}
+      TYPESENSE_COLLECTION: ${TYPESENSE_COLLECTION:-products}
+      TYPESENSE_IMPORT_BATCH_SIZE: ${TYPESENSE_IMPORT_BATCH_SIZE:-250}
+      TYPESENSE_CANDIDATE_MULTIPLIER: ${TYPESENSE_CANDIDATE_MULTIPLIER:-8}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_BASE_URL: ${GROQ_BASE_URL:-https://api.groq.com/openai/v1}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-20b}
+      GROQ_TIMEOUT_SECONDS: ${GROQ_TIMEOUT_SECONDS:-20}
+      COHERE_API_KEY: ${COHERE_API_KEY:-}
+      COHERE_BASE_URL: ${COHERE_BASE_URL:-https://api.cohere.com/v2}
+      COHERE_RERANK_MODEL: ${COHERE_RERANK_MODEL:-rerank-v4.0-fast}
+      COHERE_TIMEOUT_SECONDS: ${COHERE_TIMEOUT_SECONDS:-20}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - postgres
+      - redis
+      - typesense
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: ai-search-frontend
+    command: npm run dev
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: ai-search-postgres
+    environment:
+      POSTGRES_DB: ai_search
+      POSTGRES_USER: ai_search
+      POSTGRES_PASSWORD: ai_search
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-search-redis
+    ports:
+      - "6379:6379"
+
+  typesense:
+    image: typesense/typesense:0.25.2
+    container_name: ai-search-typesense
+    command: "--data-dir /data --api-key=xyz --enable-cors"
+    ports:
+      - "8108:8108"
+    volumes:
+      - typesense_data:/data
+
+volumes:
+  postgres_data:
+  typesense_data:
