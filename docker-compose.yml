@@ -1,11 +1,9 @@
-version: "3.9"
-
 services:
   backend:
     build:
       context: ./backend
     container_name: ai-search-backend
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8200 --reload
     environment:
       FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:3000}
       CATALOG_MODE: ${CATALOG_MODE:-sample}
@@ -35,13 +33,16 @@ services:
       COHERE_RERANK_MODEL: ${COHERE_RERANK_MODEL:-rerank-v4.0-fast}
       COHERE_TIMEOUT_SECONDS: ${COHERE_TIMEOUT_SECONDS:-20}
     ports:
-      - "8000:8000"
+      - "8200:8200"
     volumes:
       - ./backend:/app
     depends_on:
-      - postgres
-      - redis
-      - typesense
+      typesense:
+        condition: service_healthy
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
 
   frontend:
     build:
@@ -49,7 +50,7 @@ services:
     container_name: ai-search-frontend
     command: npm run dev
     environment:
-      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8000}
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8200}
     ports:
       - "3000:3000"
     volumes:
@@ -84,6 +85,12 @@ services:
       - "8108:8108"
     volumes:
       - typesense_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "awk 'NR>1 && $$2 ~ /:1FAC$$/ && $$4==\"0A\" {found=1} END {exit !found}' /proc/net/tcp"]
+      interval: 5s
+      timeout: 3s
+      retries: 60
+      start_period: 30s
 
 volumes:
   postgres_data:
