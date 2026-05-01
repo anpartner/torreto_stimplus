@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import time
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Iterable, Literal
@@ -60,6 +61,13 @@ class SearchApplication:
             products = self.ingestion_service.load_persisted_catalog()
             self.catalog_facets = self.query_understanding._build_catalog_lookup(products).snapshot
             if self.typesense.is_enabled() and products:
+                for attempt in range(30):
+                    try:
+                        # tente une requête simple
+                        self.typesense._request_text("GET", "/health")
+                        break
+                    except Exception:
+                        time.sleep(2)
                 self.typesense_indexed_products = self.typesense.upsert_products(products)
             return
 
